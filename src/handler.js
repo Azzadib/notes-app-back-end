@@ -2,7 +2,6 @@ const { nanoid } = require("nanoid")
 const notes = require("./notes")
 
 const addNoteHandler = (request, h) => {
-
     const { title = 'untitled', tags, body } = request.payload
 
     const id = nanoid(16)
@@ -10,7 +9,7 @@ const addNoteHandler = (request, h) => {
     const updatedAt = createdAt
 
     const newNote = {
-        title, tags, body, id, createdAt, updatedAt
+        title, tags, body, id, createdAt, updatedAt,
     }
 
     notes.push(newNote)
@@ -21,7 +20,7 @@ const addNoteHandler = (request, h) => {
             status: 'success',
             message: 'Note added successfully',
             data: {
-                noteId: id
+                noteId: id,
             },
         })
         response.code(201)
@@ -58,7 +57,7 @@ const getNoteByIdHandler = (request, h) => {
 
     const response = h.response({
         status: 'fail',
-        message: 'Note not found'
+        message: 'Note not found',
     })
     response.code(404)
     return response
@@ -83,7 +82,7 @@ const editNoteByIdHandler = (request, h) => {
 
         const response = h.response({
             status: 'success',
-            message: 'Note updated successfully'
+            message: 'Note updated successfully',
         })
         response.code(200)
         return response
@@ -91,7 +90,7 @@ const editNoteByIdHandler = (request, h) => {
 
     const response = h.response({
         status: 'fail',
-        message: 'Failed to update note'
+        message: 'Failed to update note',
     })
     response.code(404)
     return response
@@ -107,7 +106,7 @@ const deleteNoteByIdHandler = (request, h) => {
 
         const response = h.response({
             status: 'success',
-            message: 'Note deleted'
+            message: 'Note deleted',
         })
         response.code(200)
         return response
@@ -115,10 +114,16 @@ const deleteNoteByIdHandler = (request, h) => {
 
     const response = h.response({
         status: 'fail',
-        message: 'Failed to delete note'
+        message: 'Failed to delete note',
     })
     response.code(404)
     return response
 }
 
-module.exports = { addNoteHandler, showNotesHandler, getNoteByIdHandler, editNoteByIdHandler, deleteNoteByIdHandler }
+module.exports = {
+    addNoteHandler, 
+    showNotesHandler, 
+    getNoteByIdHandler, 
+    editNoteByIdHandler, 
+    deleteNoteByIdHandler, 
+}
